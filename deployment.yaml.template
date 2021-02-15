@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: test
+    author: eugene
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      containers:
+      - name: eugene-app
+        image: {{AWS_ACCOUNT_ID}}.dkr.ecr.{{REGION}}.amazonaws.com/eugene-app:{{APP_VERSION}}
+        ports:
+        - containerPort: 8080
+
