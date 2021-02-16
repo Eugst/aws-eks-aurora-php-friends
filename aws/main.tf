@@ -107,8 +107,9 @@ resource "random_password" "master" {
   length = 16
   min_upper = 1
   min_lower = 1
-  min_special = 1
-  override_special = ":@.,/+-!="
+  special = false
+  # min_special = 1
+  # override_special = "/@\""
 }
 resource "aws_db_parameter_group" "aurora_db_57_parameter_group" {
   name        = "dev-aurora-db-57-parameter-group"
@@ -213,7 +214,7 @@ provider "kubernetes" {
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = local.cluster_name
-  cluster_version = "1.19"
+  cluster_version = "1.18"
   subnets         = module.vpc.private_subnets
 
   tags = {

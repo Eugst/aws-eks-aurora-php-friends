@@ -1,6 +1,6 @@
 .PHONY: all infra image build push deploy destroy version_upgrade
 profile="eugene.st"
-region="eu-west-1"
+region=eu-west-1
 aws_cred_file="~/.aws/credentials"
 aws_account_id=$(shell aws sts get-caller-identity  --profile=$(profile) |jq -r ".Account")
 app_version=$(shell cat ./version | awk -F. '{$$NF = $$NF + 1;} 1' | sed 's/ /./g')
