@@ -20,4 +20,34 @@ spec:
         image: {{AWS_ACCOUNT_ID}}.dkr.ecr.{{REGION}}.amazonaws.com/eugene-app:{{APP_VERSION}}
         ports:
         - containerPort: 8080
-
+        env:
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: db-connect
+                key: db_host
+          - name: DB_USER
+            valueFrom:
+              configMapKeyRef:
+                name: db-connect
+                key: db_user
+          - name: DB_PWD
+            valueFrom:
+              secretKeyRef:
+                name: db-pwd
+                key: db_pwd
+          
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+  labels:
+    service: eugene-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: test

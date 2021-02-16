@@ -12,7 +12,7 @@ KEY `friend_id` (`friend_id`),
 UNIQUE KEY `user_id_2` (`user_id`,`friend_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+-- For MySQL version>=8
 -- DROP FUNCTION IF EXISTS get_fb_friends;
 -- DELIMITER $$
 -- CREATE FUNCTION get_fb_friends(_userId INT, _friendId INT, _depth INT ) RETURNS VARCHAR(255) CHARSET utf8
@@ -149,3 +149,4 @@ INSERT IGNORE INTO `facebook_friends` (`id`, `user_id`, `friend_id`, `friend_nam
 INSERT IGNORE INTO `facebook_friends` (`id`, `user_id`, `friend_id`, `friend_name`) VALUES (198, '77', '51', 'expedita');
 INSERT IGNORE INTO `facebook_friends` (`id`, `user_id`, `friend_id`, `friend_name`) VALUES (199, '69', '82', 'optio');
 INSERT IGNORE INTO `facebook_friends` (`id`, `user_id`, `friend_id`, `friend_name`) VALUES (200, '69', '39', 'quia');
+INSERT IGNORE INTO `facebook_friends` (`id`, `user_id`, `friend_id`, `friend_name`) VALUES (201, '87', '82', 'quiaoaoa');

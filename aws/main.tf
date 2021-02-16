@@ -146,7 +146,12 @@ resource "aws_security_group_rule" "allow_access" {
 ###########
 # MySQL data
 ###########
+resource "time_sleep" "wait_2_minutes" {
+  depends_on = [module.aurora]
+  create_duration = "2m"
+}
 resource "null_resource" "db_setup1" {
+  depends_on = [time_sleep.wait_2_minutes]
   provisioner "local-exec" {
     command = "/usr/local/bin/mysql -u ${module.aurora.this_rds_cluster_master_username} -p'${module.aurora.this_rds_cluster_master_password}' -h ${module.aurora.this_rds_cluster_endpoint} < db_backup.sql" 
   }
@@ -201,7 +206,7 @@ provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
-  #load_config_file       = false
+  load_config_file       = false
   version                = "~> 1.11"
 }
 
@@ -228,4 +233,27 @@ module "eks" {
       root_volume_type              = "gp2"
     },
   ]
+}
+
+resource "kubernetes_config_map" "db_connect" {
+  metadata {
+    name = "db-connect"
+  }
+
+  data = {
+    db_host = module.aurora.this_rds_cluster_endpoint
+    db_user = module.aurora.this_rds_cluster_master_username
+  }
+}
+
+resource "kubernetes_secret" "db_pwd" {
+  metadata {
+    name = "db-pwd"
+  }
+
+  data = {
+    db_pwd = module.aurora.this_rds_cluster_master_password
+  }
+
+  type = "Opaque"
 }
