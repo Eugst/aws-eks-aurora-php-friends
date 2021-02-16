@@ -154,7 +154,10 @@ resource "time_sleep" "wait_2_minutes" {
 resource "null_resource" "db_setup1" {
   depends_on = [time_sleep.wait_2_minutes]
   provisioner "local-exec" {
-    command = "/usr/local/bin/mysql -u ${module.aurora.this_rds_cluster_master_username} -p'${module.aurora.this_rds_cluster_master_password}' -h ${module.aurora.this_rds_cluster_endpoint} < db_backup.sql" 
+    command = "/usr/local/bin/mysql -u ${module.aurora.this_rds_cluster_master_username} -p$MYSQLPASSWORD -h ${module.aurora.this_rds_cluster_endpoint} < db_backup.sql" 
+    environment = {
+      MYSQLPASSWORD = module.aurora.this_rds_cluster_master_password
+    }
   }
 
 }
