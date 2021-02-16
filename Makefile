@@ -35,5 +35,6 @@ test-app:
 
 
 destroy:
-	AWS_PROFILE=$(profile) KUBECONFIG=$(kubeconfig) kubectl delete deployment app-deployment && echo "success!" || echo "failure!"
+	cat "deployment.yaml.template" | sed "s/{{APP_VERSION}}/$(app_version)/g" | sed "s/{{AWS_ACCOUNT_ID}}/$(aws_account_id)/g" | sed "s/{{REGION}}/$(region)/g" | AWS_PROFILE=$(profile) KUBECONFIG=$(kubeconfig) kubectl delete -f - && echo "success!" || echo "failure!"
 	cd aws && terraform destroy -auto-approve && rm -f $(kubeconfig) && cd ..
+	echo "0.0.0" > ./version
