@@ -1,4 +1,6 @@
 # PHP method finding a shortest path between 2 members via their friends
+This repo implements creating AWS infrastructe: VPC, Subnets, Security groups, EKS, ECR, Aurora RDS by terraform;  
+build the Docker image, store it to ECR and deploy the application to Kubernetes(EKS).
 
 ## Requirements:
 1. [AWS cli](https://aws.amazon.com/cli/)  
@@ -17,7 +19,7 @@ check and update variables [in Makefile](Makefile):
 `make infra`    - terraform build AWS: VPC, RDS Aurora, EKS, ECR  
 `make build`    - build docker image  
 `make push`     - push docker image to ECR  
-`make deploy`   - deploy k8s resources to EKS  
+`make deploy`   - deploy kubernetes resources to EKS  
 `make app`      - include previous 3 makes: docker build app image and push to ECR and deploy to EKS  
 `make all`      - include all above: creating AWS infrastructure, build and deploy app  
 `make test-app` - port-forward to k8s service and open URL in browser  
