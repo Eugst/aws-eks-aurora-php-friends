@@ -1,4 +1,5 @@
-# aws-eks-aurora-php-friends
+# PHP method finding a shortest path between 2 members via their friends
+## AWS EKS Aurora Terraform Kubernetes Docker 
 
 ## Requirements:
 1. [AWS cli](https://aws.amazon.com/cli/)  
