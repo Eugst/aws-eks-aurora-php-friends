@@ -1,15 +1,15 @@
 # aws-eks-aurora-php-friends
 
 ## Requirements:
-1. [AWS cli](https://aws.amazon.com/cli/)
-2. [Terraform](https://www.terraform.io/)
-3. [Docker](https://www.docker.com/)
-4. [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+1. [AWS cli](https://aws.amazon.com/cli/)  
+2. [Terraform](https://www.terraform.io/)  
+3. [Docker](https://www.docker.com/)  
+4. [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)  
 
 
 ## Before usage:
 check and update variables [in Makefile](Makefile):
-1. `profile`
+1. `profile`  
 2. `region`  
 3. `aws_cred_file`
 
